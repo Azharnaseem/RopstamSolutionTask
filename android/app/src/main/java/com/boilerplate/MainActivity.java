@@ -1,4 +1,4 @@
-package com.boilerplate;
+package com.ropstamsolution;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;

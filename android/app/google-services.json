@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719451707511",
+    "project_id": "ropstamtask",
+    "storage_bucket": "ropstamtask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719451707511:android:78b1bee2597b1c1806ce72",
+        "android_client_info": {
+          "package_name": "com.ropstamsolution"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719451707511-eq1q2b0t6hncr0r77cn84ql6qnjl0g3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT6A_3w7LzJtXx_mAyMu1lgxrl-8frZhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719451707511-eq1q2b0t6hncr0r77cn84ql6qnjl0g3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

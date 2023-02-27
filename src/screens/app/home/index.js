@@ -8,11 +8,16 @@ import styles from "./styles";
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
+  console.log("====================================");
+  console.log("======", userInfo);
+  console.log("====================================");
   return (
     <ScreenWrapper>
       <View style={styles.mainViewContainer}>
         <Text style={styles.title}>HOME SCREEN</Text>
-        <Text style={styles.title}>{userInfo?.name}</Text>
+        <Text
+          style={styles.title}
+        >{`${userInfo?.firstName} ${userInfo?.lastname}`}</Text>
         <Text style={styles.title}>{userInfo?.email}</Text>
 
         <Button
@@ -23,7 +28,6 @@ export default function Home({ navigation, route }) {
               dispatch(setUserMeta(null));
               dispatch(setIsLoggedIn(false));
               dispatch(setAppLoader(false));
-
             }, 600);
           }}
         />
