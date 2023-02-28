@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper, VehicleData } from "~components";
 import { CaretLeftSVG } from "~components/assets/svg";
-
 import { dataVehicle, deleteCard } from "~redux/slices/user";
 import AppColors from "~utills/AppColors";
 import { height, width } from "~utills/Dimension";

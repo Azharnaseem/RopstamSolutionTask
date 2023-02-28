@@ -54,6 +54,7 @@ export default function SignUpScreen({ navigation, route }) {
           const user = await getData("Users", uid);
           dispatch(setUserMeta(user?.data));
           dispatch(setIsLoggedIn(true));
+          dispatch(setAppLoader(false));
           successMessage("SignUp successfully SignUp");
         } else {
           dispatch(setAppLoader(false));
