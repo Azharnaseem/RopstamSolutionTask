@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { Button, Input, ScreenWrapper } from "~components";
 import { setIsLoggedIn, setUserMeta } from "~redux/slices/user";
 import { setAppLoader } from "~redux/slices/config";
-import TextInput from "~components/textInput";
 import { getData, SaveData, SignUpEmailPassword } from "~backend/Auth";
 import ScreenNames from "~routes/routes";
 import { useState } from "react";
@@ -26,32 +25,44 @@ export default function SignUpScreen({ navigation, route }) {
   const email = useRef();
 
   const UserSignUp = async () => {
-    const resp = await SignUpEmailPassword(userData?.email, password);
-
-    if (resp) {
-      const uid = auth().currentUser.uid;
-      let userDetail = {
-        firstName: userData?.firstName,
-        lastname: userData?.lastName,
-        email: userData?.email,
-        uid: uid,
-        // password: password,
-      };
-      const res = await SaveData("Users", uid, userDetail);
-      if (res) {
-        const user = await getData("Users", uid);
-        dispatch(setUserMeta(user?.data));
-        dispatch(setIsLoggedIn(true));
-        successMessage("SignUp successfully SignUp");
+    if (userData?.firstName == "") {
+      erroMessage("Enter your first name");
+      return;
+    } else if (userData?.lastName == "") {
+      erroMessage("Enter your Last name");
+      return;
+    } else if (userData?.email == "") {
+      erroMessage("Enter your  email");
+      return;
+    } else if (password == "") {
+      erroMessage("Enter Password");
+      return;
+    } else {
+      dispatch(setAppLoader(true));
+      const resp = await SignUpEmailPassword(userData?.email, password);
+      if (resp) {
+        const uid = auth().currentUser.uid;
+        let userDetail = {
+          firstName: userData?.firstName,
+          lastname: userData?.lastName,
+          email: userData?.email,
+          uid: uid,
+          // password: password,
+        };
+        const res = await SaveData("Users", uid, userDetail);
+        if (res) {
+          const user = await getData("Users", uid);
+          dispatch(setUserMeta(user?.data));
+          dispatch(setIsLoggedIn(true));
+          successMessage("SignUp successfully SignUp");
+        } else {
+          dispatch(setAppLoader(false));
+        }
       } else {
+        erroMessage("email is invalid");
         dispatch(setAppLoader(false));
       }
-    } else {
-      erroMessage("Something went wrong");
-      dispatch(setAppLoader(false));
     }
-
-    dispatch(setAppLoader(false));
   };
   return (
     <ScreenWrapper>
@@ -106,19 +117,6 @@ export default function SignUpScreen({ navigation, route }) {
         <Button
           containerStyle={styles.btnContainer}
           title={"Sign Up"}
-          // onPress={() => {
-          //   dispatch(setAppLoader(true));
-          //   setTimeout(() => {
-          //     dispatch(setIsLoggedIn(true));
-          //     dispatch(
-          //       setUserMeta({
-          //         name: `${userData.firstName}  ${userData.lastName}`,
-          //         email: `${userData.email}`,
-          //       })
-          //     );
-          //     dispatch(setAppLoader(false));
-          //   }, 600);
-          // }}
           onPress={() => UserSignUp()}
         />
         <View style={styles.conditionCon}>

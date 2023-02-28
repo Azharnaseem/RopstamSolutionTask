@@ -28,15 +28,18 @@ const Input = (
     returnKeyType,
     onPressIn,
     value,
+    tittleTextStyle,
     containerWidth = 82,
   },
   ref
 ) => {
   return (
     <View>
-      <View style={styles.container}>
+      <View style={[styles.container, textinputViewStyle]}>
         <View style={styles.textInputView}>
-          <Text color={AppColors.black}>{title}</Text>
+          <Text style={tittleTextStyle} color={AppColors.black}>
+            {title}
+          </Text>
           <TextInput
             placeholder={placeholder}
             placeholderTextColor={placeholderTextColor}

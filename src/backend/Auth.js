@@ -39,33 +39,9 @@ export const SignInEmailPassword = async (email, password) => {
       errMess =
         " There is no user record corresponding to this identifier. First SignUp";
     }
-    // if (error.code === 'auth/invalid-email') {
-    //   errMess = ' email address is invalid!';
-    // }
 
     return { success: false, error: errMess };
   }
-  // let success = false;
-  // await auth()
-  //   .signInWithEmailAndPassword(email, password)
-  //   .then(() => {
-  //     console.log('signed in!');
-  //     success = true;
-  //   })
-
-  //   .catch(error => {
-  //     if (error.code === 'auth/email-already-in-use') {
-  //       console.log('That email address is already in use!');
-  //     }
-
-  //     if (error.code === 'auth/invalid-email') {
-  //       console.log('That email address is invalid!');
-  //     }
-
-  //     console.error(error);
-  //     success = false;
-  //   });
-  // return success;
 };
 export async function SaveData(collection, doc, jsonObject) {
   // console.log(collection, doc, jsonObject);

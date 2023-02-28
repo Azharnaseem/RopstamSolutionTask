@@ -11,38 +11,47 @@ import ScreenNames from "~routes/routes";
 import { useState } from "react";
 import { getData, SignInEmailPassword } from "~backend/Auth";
 import { erroMessage, successMessage } from "~utills/Methods";
+import { CaretLeftSVG } from "~components/assets/svg";
+import AppColors from "~utills/AppColors";
 export default function Login({ navigation, route }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const passRef = useRef();
   const onSubmitLogin = async () => {
-    dispatch(setAppLoader(true));
-    // try {
-    const result = await SignInEmailPassword(email, password);
-    console.log("====================================");
-    console.log(result.data.user.uid);
-    console.log("====================================");
-    if (result?.success) {
-      const res = await getData("Users", result.data.user.uid);
-      if (res?.exists) {
-        dispatch(setUserMeta(res?.data));
-        dispatch(setAppLoader(false));
-        dispatch(setIsLoggedIn(true));
-        successMessage("Successfully Logged In");
-      } else {
-        await auth().signOut();
-        dispatch(setAppLoader(false));
-      }
+    if (email == "") {
+      erroMessage("Please enter email");
+      return;
+    } else if (password == "") {
+      erroMessage("Please enter password");
+      return;
     } else {
-      dispatch(setAppLoader(false));
-      erroMessage(result?.error);
-      dispatch(setAppLoader(false));
+      dispatch(setAppLoader(true));
+      try {
+        const result = await SignInEmailPassword(email, password);
+        console.log("====================================");
+        console.log(result.data.user.uid);
+        console.log("====================================");
+        if (result?.success) {
+          const res = await getData("Users", result.data.user.uid);
+          if (res?.exists) {
+            dispatch(setUserMeta(res?.data));
+            dispatch(setAppLoader(false));
+            dispatch(setIsLoggedIn(true));
+            successMessage("Successfully Logged In");
+          } else {
+            await auth().signOut();
+            dispatch(setAppLoader(false));
+          }
+        } else {
+          dispatch(setAppLoader(false));
+          erroMessage(result?.error);
+        }
+      } catch (err) {
+        dispatch(setAppLoader(false));
+        erroMessage("email or password Wrong Please Check");
+      }
     }
-    // } catch (error) {
-    //   dispatch(setAppLoader(false));
-    //   erroMessage("Invalid user");
-    // }
   };
 
   return (

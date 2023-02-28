@@ -5,16 +5,13 @@ import { useSelector } from "react-redux";
 import { LoginScreen, SignUpScreen } from "~screens/auth";
 import { Loader } from "~components";
 import ScreenNames from "./routes";
-import { HomeScreen } from "~screens/app";
+import { AddedDataScreen, HomeScreen } from "~screens/app";
 import { selectIsLoggedIn } from "~redux/slices/user";
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   const isLogin = useSelector(selectIsLoggedIn);
-  console.log("====================================");
-  console.log(isLogin);
-  console.log("====================================");
   return (
     <NavigationContainer>
       <Loader />
@@ -32,6 +29,10 @@ export default function Routes() {
           screenOptions={{ header: () => false }}
         >
           <Stack.Screen name={ScreenNames.HOME} component={HomeScreen} />
+          <Stack.Screen
+            name={ScreenNames.ADDEDDATASCREEN}
+            component={AddedDataScreen}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
